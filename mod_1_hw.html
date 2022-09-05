@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 1 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+// NOTE: You can enter both code and explanations. For an explanation, start
+//       the line with '//' which indicates a comment.
+
+// NOTE: console.log prints text to the browser console that you can enable
+//       to see the output. It is a little bit more convenient than alert so
+//       we will use it most of the time.
+
+// NOTE: Please review the following links regularly:
+//       https://appliedcomputerscience.org/arrays-vs-objects
+//       https://appliedcomputerscience.org/no-prototype-vs-prototype
+//       https://appliedcomputerscience.org/implementation-vs-interface
+
+
+
+//----------------------------//
+// Setting up the environment //
+//----------------------------//
+console.log("Setting up the environment");
+
+// 1. When you are done copy this file to your jail and submit the link through Schoology.
+
+  // NO JAIL IS BEING USED THIS YEAR
+
+//-------------------//
+// JavaScript basics //
+//-------------------//
+console.log("JavaScript basics");
+
+// 1. Figure out what the << operator does. HINT: it is related to &.
+// ... type your answer here and include an example ...
+
+9 << 3
+//this equals 72 bc 9 * (2 ** 3) = 72
+
+//--------------------//
+// Control structures //
+//--------------------//
+console.log("Control structures");
+
+// 1. Write an if statement that prints the number of days in a month to the console (using 3 letter abbreviations).
+function getNumberOfDays(month) {
+  if (month === "jan" || month === "mar" || month === "may" || month === "jul" || month === "aug" || month === "oct" || month === "dec")
+  {
+    console.log("the month of " + month + " has 31 days");
+  }
+  else if (month === "apr" || month === "jun" || month === "sep" || month === "nov") {
+    console.log("the month of " + month + " has 30 days");
+  }
+  else if (month === "feb"){
+    console.log("the month of " + month + " has 28 or 29 days");
+  }
+}
+
+// 2. Write a loop to calculate 1+2+3+...+n and print it to the console.
+var n = 0;
+// ... put loop here ...
+function adding() {
+  for (var n = 0; n < 1276; n++) {
+    console.log(n);
+  }
+}
+
+
+//-----------//
+// Functions //
+//-----------//
+console.log("Functions");
+
+// 1. Write a function to check if an array contains a specific number but is not at the start or the end.
+function checkForNumber(arr, num) {
+  // modify
+  return false;
+}
+console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 4)); // should be false
+console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 3)); // should be false
+console.log("Checking for number: " + checkForNumber([4, 2, 5, 7, 3], 2)); // should be true
+console.log("Checking for number: " + checkForNumber([4, 2, 5, 7, 3], 13)); // should be false
+console.log("Checking for number: " + checkForNumber([4, 2, 5, 5], 5)); // should be false
+
+
+
+//-------------------------------------------//
+// Object-oriented programming in JavaScript //
+//-------------------------------------------//
+console.log("Object-oriented programming in JavaScript");
+
+// 1. Add methods to the following object to calculate the circumference and area.
+
+function Rectangle (width, height) {
+  this.width = width;
+  this.height = height;
+}
+  function getArea(width, height) {
+  return width * height;
+}
+  function getCircumference(width, height) {
+  return 2*(width + height);
+}
+
+// ... add getCircumference and getArea methods ...
+// HINT: use the prototype
+
+var width = 10;
+var height = 5;
+function Rectangle (width, height) {
+  this.width = width;
+  this.height = height;
+  // im not quite sure what to do with this, so i tried working around it...
+}
+  function getArea(width, height) {
+  return width * height;
+}
+  function getCircumference(width, height) {
+  return 2*(width + height);
+}
+document.writeln("The circumference for the rectangle is " + getCircumference(width, height));
+document.writeln("The area for the rectangle is " + getArea(width, height));
+
+//console.log was not working for me, i could have it messed up, but this way, it let me put it on the screen next to me.
+
+
+//---------------------//
+// Debugging and tools //
+//---------------------//
+
+// None.
+
+
+
+//-----------------------------------------------//
+// Introduction to ECMAScript 6 and ECMAScript 7 //
+//-----------------------------------------------//
+
+// None.
+
+
+//---------//
+// Project //
+//---------//
+
+// Normally a bigger programming task follows at the end.
+// We skip this in the first week.
+
+</script>
+</head>
+<body>
+  See Console!
+</body>
+</html>
