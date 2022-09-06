@@ -60,13 +60,21 @@ function getNumberOfDays(month) {
 }
 
 // 2. Write a loop to calculate 1+2+3+...+n and print it to the console.
-var n = 0;
+//var n = 0;
 // ... put loop here ...
-function adding() {
-  for (var n = 0; n < 1276; n++) {
-    console.log(n);
-  }
+//function adding() {
+  //for (var n = 0; n < 1276; n++) {
+    //console.log(n);
+  //}
+//}
+
+var n = 50;
+var total = 0;
+for(var i = 1; i < 50; i++) {
+  total += i;
 }
+  console.log("total sum is " + total);
+  
 
 
 //-----------//
@@ -77,7 +85,17 @@ console.log("Functions");
 // 1. Write a function to check if an array contains a specific number but is not at the start or the end.
 function checkForNumber(arr, num) {
   // modify
-  return false;
+  if (arr[0] === num || arr[arr.length-1] === num) {
+    return false;
+  }
+// for loop for providing true pattern
+  for (var i = 0; i< arr.length; i++){
+    if(arr[i] === num) {
+      return true;
+    }
+  }
+// default value if neither solutions were evaluated
+return false;
 }
 console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 4)); // should be false
 console.log("Checking for number: " + checkForNumber([4, 2, 5, 3], 3)); // should be false
@@ -108,25 +126,26 @@ function Rectangle (width, height) {
 // ... add getCircumference and getArea methods ...
 // HINT: use the prototype
 
-var width = 10;
-var height = 5;
-function Rectangle (width, height) {
+var rectangle = rectangle(10,5,5);
+
+function rectangle(width, height, length) {
   this.width = width;
   this.height = height;
-  // im not quite sure what to do with this, so i tried working around it...
+  this.length = length;
 }
-  function getArea(width, height) {
-  return width * height;
+
+//document.writeln("The circumference for the rectangle is " + getCircumference(width, height));
+//document.writeln("The area for the rectangle is " + getArea(width, height));
+
+console.log("The circumference for the rectangle is " + rectangle.getCircumference());
+function getCircumference() {
+  ((length + width) * 2)
 }
-  function getCircumference(width, height) {
-  return 2*(width + height);
+
+console.log("The area for the rectangle is " + rectangle.area());
+function getArea() {
+  (length * width)
 }
-document.writeln("The circumference for the rectangle is " + getCircumference(width, height));
-document.writeln("The area for the rectangle is " + getArea(width, height));
-
-//console.log was not working for me, i could have it messed up, but this way, it let me put it on the screen next to me.
-
-
 //---------------------//
 // Debugging and tools //
 //---------------------//
