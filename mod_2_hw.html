@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 2 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+// NOTE: You can enter both code and explanations. For an explanation, start
+//       the line with '//' which indicates a comment.
+
+// NOTE: console.log prints text to the browser console that you can enable
+//       to see the output. It is a little bit more convenient than alert so
+//       we will use it most of the time.
+
+// NOTE: Please review the following links regularly:
+//       https://appliedcomputerscience.org/arrays-vs-objects
+//       https://appliedcomputerscience.org/no-prototype-vs-prototype
+//       https://appliedcomputerscience.org/implementation-vs-interface
+
+
+
+//---------------------------//
+// Why should we use arrays? //
+//---------------------------//
+console.log("Why should we use arrays?");
+
+// None.
+
+
+
+//----------------------------------//
+// Creating and initializing arrays //
+//----------------------------------//
+console.log("Creating and initializing arrays");
+
+// 1. Study the following sequence: 1, 3, 2, 6, 5, 15, 14, 42, ...
+//    Create an array with the first 25 elements of this sequence.
+//    Obviously this has to be done programmatically.
+var sequence = [1];
+
+for(var i = 1; i < 25; i++) {
+//i refrences the current index
+// i-1 refrences to previous index
+    if(i % 2 === 1){
+        //odd
+        sequence[i] = sequence [i-1] * 3;
+    }
+    else {
+        sequence[i] = sequence [i-1] - 1;
+    }
+    console.log(sequence);
+}
+
+
+//-----------------//
+// Adding elements //
+//-----------------//
+console.log("Adding elements");
+
+// Use this array to answer the questions below.
+var arr = [2, 3, 4, 5, 6, 7, 8];
+
+// 1. Add 9 and 10 to the end of the array. Make sure you keep the order.
+arr.push(9,10);
+console.log(arr);
+// 2. Add 0 and 1 to the beginning of the array. Make sure you keep the order.
+arr.unshift(0,1);
+console.log(arr);
+
+//-------------------//
+// Removing elements //
+//-------------------//
+console.log("Removing elements");
+
+// Use the array from the 'Adding elements' section.
+
+// 1. Remove 9 and 10 from the end of the array.
+arr.pop();
+arr.pop();
+console.log(arr)
+// 2. Remove 0 and 1 from the beginning of the array.
+arr.shift();
+arr.shift();
+console.log(arr)
+
+//-------------------------------------------------------//
+// Adding and removing elements from a specific position //
+//-------------------------------------------------------//
+console.log("Adding and removing elements from a specific position");
+
+// Use the array from the 'Adding elements' section.
+
+// 1. Remove all elements except the first and last.
+arr.splice(1, arr.length -2);
+
+// 2. Insert the numbers that were just removed back into the array.
+arr.slice(1, arr.length -2);
+// NOTE: arr should be back to its original state at this point.
+
+
+
+//---------------------------------------------//
+// Two-dimensional and multidimensional arrays //
+//---------------------------------------------//
+console.log("Two-dimensional and multidimensional arrays");
+
+// 1. Multiply the row elements together in the two dimensional array below
+//    and then sum the result. So for the array below one would get
+//    (1*2*3)+(4*5*6)+(7*8*9). Print the result to the console.
+//    NOTE: obviously the code should still work if the numbers in the array
+//          are changed.
+
+var arr = [[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9]];
+
+var arrTotal = 0;
+           for (var i = 0; i < arr.length; i++) {
+        arrTotal * arr[0,1,2][i];
+}
+console.log(arrTotal);
+//-----------------------------------------//
+// References for JavaScript array methods //
+//-----------------------------------------//
+console.log("References for JavaScript array methods");
+
+// Use the following two arrays to answer the next questions.
+
+var positiveNumbers = [1, 2, 3, 4, 5, 0];
+var negativeNumbers = [-5, -4, -3, -2, -1];
+
+// 1. Create a new array 'numbers' from the above arrays that contains all
+//    numbers in order.
+positiveNumbers.sort();
+var numbers = negativeNumbers.concat(positiveNumbers);
+console.log(numbers);
+
+//var numbers = null; // to be changed
+
+// 2. Check if some numbers in the numbers array are larger than or equal to 0
+//    and print the result to the console.
+var result = numbers.filter(function(x) {
+    return Math.abs(x) % 2 === 1;
+});
+// 3. Create a new array that only contains the odd numbers from the numbers
+//    array.
+
+var odds = numbers.filter(number => {
+    return number % 2 !== 0;
+});
+
+console.log(odds);
+// Only read ECMAScript sections.
+
+
+
+//----------------------//
+// The TypedArray class //
+//----------------------//
+console.log("The TypedArray class");
+
+// None.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// The following text is from the all the Amendments in the Bill of Rights.
+var text = "Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances. A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed. No Soldier shall, in time of peace be quartered in any house, without the consent of the Owner, nor in time of war, but in a manner to be prescribed by law. The right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and no Warrants shall issue, but upon probable cause, supported by Oath or affirmation, and particularly describing the place to be searched, and the persons or things to be seized. No person shall be held to answer for a capital, or otherwise infamous crime, unless on a presentment or indictment of a Grand Jury, except in cases arising in the land or naval forces, or in the Militia, when in actual service in time of War or public danger; nor shall any person be subject for the same offence to be twice put in jeopardy of life or limb; nor shall be compelled in any criminal case to be a witness against himself, nor be deprived of life, liberty, or property, without due process of law; nor shall private property be taken for public use, without just compensation. In all criminal prosecutions, the accused shall enjoy the right to a speedy and public trial, by an impartial jury of the State and district wherein the crime shall have been committed, which district shall have been previously ascertained by law, and to be informed of the nature and cause of the accusation; to be confronted with the witnesses against him; to have compulsory process for obtaining witnesses in his favor, and to have the Assistance of Counsel for his defence. In Suits at common law, where the value in controversy shall exceed twenty dollars, the right of trial by jury shall be preserved, and no fact tried by a jury, shall be otherwise re-examined in any Court of the United States, than according to the rules of the common law. Excessive bail shall not be required, nor excessive fines imposed, nor cruel and unusual punishments inflicted. The enumeration in the Constitution, of certain rights, shall not be construed to deny or disparage others retained by the people. The powers not delegated to the United States by the Constitution, nor prohibited by it to the States, are reserved to the States respectively, or to the people.";
+
+// First we make the text lower case.
+text = text.toLowerCase();
+
+// Then we remove punctuation by using a regular expression.
+text = text.replace(/[.,;]/g, "");
+
+// And store the words into an array.
+var textArray = text.split(" ");
+
+// 1. Remove all words from the array of length less than or equal to 3. Or,
+//    similarly, keep all words of length 4 or greater.
+
+text = text.replace(/(\b(\w{1,3})\b(\W|$))/g,'').split(/\s+/);
+
+/// 2. Create a new array that contains all duplicate words that are left after
+//    removing the short words in step (1).
+
+var newArr = [247] // # of words, this is 100% wrong.
+
+</script>
+</head>
+<body>
+  See Console!
+</body>
+</html>
