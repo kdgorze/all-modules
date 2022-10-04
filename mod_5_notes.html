@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 5 Class</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//--------------------------------//
+// The linked list data structure //
+//--------------------------------//
+console.log("The linked list data structure");
+
+// 1. Suppose you have an array with 1,000 elements and a linked list with 1,000
+//    elements. For both data structures, you want to retrieve the last entry.
+//    Does one data structure complete that operation before the other (i.e.,
+//    is it faster)? If yes, how much faster? If no, why does it take the same
+//    amount of time?
+
+
+
+//------------------------//
+// Creating a linked list //
+//------------------------//
+console.log("Creating a linked list");
+
+// We are going to implement the linked list data structure described in the
+// book. Instead of using 'let' we use 'var' everywhere. Note that this
+// implementation does not use the prototype (see homework). Here is a skeleton
+// that we will work on completing:
+
+function LinkedList() {
+
+  // helper class
+  function Node(element) {
+    this.element = element;
+    this.next = null;
+  }
+
+  // store length and head
+  var length = 0;
+  var head = null;
+
+  this.append = function(element) {
+    // add a new item to the end of the list
+    var node = new Node(element)
+    if(head === null){
+      head = node;
+    }
+    else {
+      var current = head;
+      while(current.next !== null){
+        current = current.next;
+      }
+      //current is now, the last node is in the list
+      current.next = node;
+    }
+    length++;
+  };
+
+  this.insert = function(position, element) {
+    // insert a new item at a specific location
+    if (position < 0 || position > length){
+      //invalid position
+      return false;
+    }
+    else {
+      //determine the valid position
+      var node = new Node(element);
+      if(position === 0){
+        node.next = head;
+        head = node;
+      }
+      else {
+        var index = 0;
+        var previous = null;
+        var current = head;
+        while(index++ < position){
+          previous = current;
+          current = current.next;
+        }
+        //make the node point to the current
+        node.next = current;
+        //make previous point to the node
+        previous.next = node;
+      }
+        length++;
+        return true;
+    }
+  };
+
+  this.removeAt = function(position) {
+    // remove an element from a specific location
+    if(position < 0 || position >= length){
+      return null;
+    }
+      else {
+        var current = head;
+        if(position === 0){
+          head = head.next;
+        }
+        else {
+          var index = 0;
+          var pervious = null;
+          while(index++ < position){
+          previous = current;
+          current = current.next;
+        }
+        length--;
+        return current.element;
+      }
+    }
+  };
+
+  this.remove = function(element) {
+    // remove a specific element from the list
+    let index = this.indexOf(element);
+    return this.removeAt (index);
+  };
+
+  this.indexOf = function(element) {
+    // return the index of an element in the list
+    let current = head;
+    index = -1;
+
+    while (current) {
+      if (element === current.element)
+      return index;
+    }
+    index++;
+    current = current = current.next;
+    }
+
+    return -1;
+  };
+
+  this.isEmpty = function() {
+    // check whether the list is empty
+    return length === 0;
+  };
+
+  this.size = function() {
+    // return the number of elements in the list
+    return length;
+  };
+
+  this.getHead = function() {
+    // return head node
+    return head;
+  }
+
+  this.toString = function() {
+    // overwrite the default toString method
+    var current = head;
+    var string = "List: ";
+    while (current) {
+      string += current.element + (current.next ? " -> " : "");
+      current = current.next;
+    }
+    return string;
+  };
+
+  this.print = function() {
+    // print to the console
+    console.log(this.toString());
+  };
+
+
+// create a linked list to operate on
+var list = new LinkedList();
+
+// 1. Write pseudo code (meaning; use comments) to describe how you would
+//    implement the append method. HINT: What two scenarios can you distinguish?
+
+  //list.append(1);
+  //list.append(2);
+  //list.print();
+
+// 2. Translate your pseudo code into actual code and test it.
+//    HINT: Use list.print() to test your code.
+list.append(1);
+list.append(2);
+list.print();
+
+// 3. Repeat (1) and (2) for insert.
+list.insert(1);
+list.insert(2);
+list.print();
+
+// 4. Repeat (1) and (2) for removeAt.
+list.removeAt(1);
+list.removeAt(2);
+list.print();
+// 5. Repeat (1) and (2) for remove.
+list.remove(1);
+list.remove(2);
+list.print();
+
+// 6. Repeat (1) and (2) for indexOf.
+list.indexOf(1);
+list.indexOf(2);
+list.print();
+
+// 7. Repeat (1) and (2) for isEmpty.
+list.isEmpty(1);
+list.isEmpty(2);
+list.print();
+
+// 8. Repeat (1) and (2) for size.
+list.size(1);
+list.size(2);
+list.print();
+
+// 9. Repeat (1) and (2) for getHead.
+list.getHead(1);
+list.getHead(2);
+list.print();
+
+// ------- //
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Write a function that takes two linked lists as input and returns true if
+//    they have the same elements, and false otherwise. Test your code.
+
+function isEqual(list1, list2) {
+  // implementation
+}
+  function Node(element) {
+    this.element = element;
+    this.next = null;
+  }
+
+  var length = 0;
+  var head = null;
+
+
+// 2. Implement the stack data structure using a linked list instead of an
+//    array. Use the prototype.
+
+function Stack() {
+  // put properties here (the linked list)
+  // do NOT use this.items = [];
+}
+
+function Stack() {
+  // property
+}
+
+Stack.prototype.append = function(element){
+}
+
+Stack.prototype.insert = function(position, element){
+}
+
+Stack.prototype.remove = function(element){
+}
+
+Stack.prototype.indexOf = function(element){
+}
+
+Stack.prototype.removeAt = function(position){
+}
+
+Stack.prototype.isEmpty = function(){
+}
+
+Stack.prototype.size = function(){
+}
+
+Stack.prototype.toString = function(){
+  console.log(toString());
+};
+
+Stack.prototype.print = function(){
+
+};
+  
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
