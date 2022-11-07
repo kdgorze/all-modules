@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 9 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+//------------------------------------//
+// The binary and binary search trees //
+//------------------------------------//
+console.log("The binary and binary search trees");
+
+function Node(key) {
+  this.key = key;
+  this.left = null;
+  this.right = null
+}
+
+function BinarySearchTree() {
+  // the root node
+  var root = null;
+}
+
+//--------------------------------------------------------------------------------
+
+// helper functions
+BinarySearchTree.prototype._insertNode = function(node, newNode) {
+  // node is the node we want to insert into
+  // newNode is the node we want to insert
+  if (newNode.key < node.key) {
+    // go to left
+    if (node.left === null) {
+      // no left node yet so assign
+      node.left = newNode;
+    }
+    else {
+      // move down tree and repeat
+      this._insertNode(node.left, newNode);
+    }
+  }
+  else {
+    // go to right
+    if (node.right === null) {
+      // no right node yet so assign
+      node.right = newNode;
+    }
+    else {
+      // move down tree and repeat
+      this._insertNode(node.right, newNode);
+    }
+  }
+}
+
+//--------------------------------------------------------------------------------
+
+BinarySearchTree.prototype.insert = function(key) {
+  // insert new key in the tree
+  var newNode = new Node(key);
+  if (root === null) {
+    // no nodes yet
+    root = newNode;
+  }
+  else {
+    // find insert location through insertNode
+    this._insertNode(root, newNode);
+  }
+};
+
+//---------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._searchNode = function(node,key){
+    if(node === null){
+      return false;
+    }
+    if(key < node.key){
+      return _searchNode(node.left,key)
+    } else if (key > node.key){
+      return _searchNode(node.right,key);
+    } else
+      return true;
+
+  }
+  this.search = function(key) {
+    // search for key and return true if found, false otherwise
+    return _searchNode(root,key);
+  };
+
+//-----------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._inOrderTraverse(node, callback)
+  if(node !== null) {
+    _inOrderTraverse(node.left, callback);
+    callback(node.key);
+    _inOrderTraverse(node.right, callback);
+  }
+
+
+  this._inOrderTraverse = function(callback) {
+    // visit all nodes of the tree using in-order traversal
+    // call callback with each key encountered
+    return _inOrderTraverse(root,callback);
+  };
+
+//----------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._preOrderTraverse(node,callback)
+  if (node !== null){
+    callback(node.key); //rearrange order when testing
+    _preOrderTraverse(node.left,callback);
+    _preOrderTraverse(node.right,callback);
+  }
+
+
+  this._preOrderTraverse = function(callback) {
+    // visit all nodes of the tree using pre-order traversal
+    // call callback with each key encountered
+    return _preOrderTraverse(root,callback);
+  };
+
+//----------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._postOrderTraverse(node,callback)
+  if (node !== null){
+    _postOrderTraverse(node.left,callback);
+    _postOrderTraverse(node.right,callback);
+    callback(node.key);
+  }
+
+
+  this._postOrderTraverse = function(callback) {
+    // visit all nodes of the tree using post-order traversal
+    // call callback with each key encountered
+    return _postOrderTraverse(root,callback);
+  };
+
+//--------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._minNode = function(node){
+  if(node){
+    while(node && node.left !== null){
+      node = node.left;
+    }
+    return node.key;
+  }
+  return null;
+}
+
+  this.min = function() {
+    // return the minimum key in the tree
+    return _minNode(root);
+  };
+
+//----------------------------------------------------------------------------------
+
+BinarySearchTree.prototype._maxNode = function(node){
+  if(node){
+    while(node && node.right !== null){
+      node = node.right;
+    }
+    return node.key;
+  }
+  return null;
+}
+
+  this.max = function() {
+    // return the maximum key in the tree
+    return _maxNode(root);
+  };
+
+//----------------------------------------------------------------------------------
+
+this.remove = function() {
+    // removes the key from the tree
+  };
+
+//--------------------------------------------------------------------------------
+
+this.print = function() {
+    function print(node) {
+      // check if not is not null
+      if (node !== null) {
+        // text for left child
+        var leftChild = node.left !== null ? node.left.key : "None";
+        // text for right child
+        var rightChild = node.right !== null ? node.right.key : "None";
+        // print output
+        console.log(leftChild + " <-- " + node.key + " --> " + rightChild);
+        // traverse left
+        print(node.left);
+        // traverse right
+        print(node.right);
+      }
+    }
+    console.log("===tree===");
+    print(root);
+    console.log("==========");
+  };
+
+//------------------------------------------------------------------------------------
+
+// 1. Finish the implementation of the tree data structure above using the
+//    prototype (as opposed to the version we wrote in class). Note that we
+//    have helper functions that we have to deal with, and we simply make them
+//    part of the prototype but prepend them with _, e.g., _insertNode above.
+//    This is a common convention/solution. Programmers using a tree object are
+//    not supposed to use _ methods (or properties) directly.
+
+    // WAS FINISHED ABOVE
+
+// 2. Run some tests that show that your code works.
+
+var tree = new BinarySearchTree();
+tree.insert(1);
+tree.insert(2);
+tree.insert(15);
+tree.insert(5);
+tree.insert(3);
+tree.insert(9);
+// copy rest from book
+tree._print();
+
+//----------------//
+// Tree traversal //
+//----------------//
+console.log("Tree traversal");
+
+function printNode(value) {
+  console.log(value);
+}
+
+// 1. Implement in-order traversal using the prototype. Test your
+//    implementation with the printNode() function given above.
+//    NOTE: in-order means all keys are visited in sorted order.
+
+
+console.log("In Order");
+tree._inOrderTraverse(printNode);
+
+// 2. Implement pre-order traversal using the prototype. Test your
+//    implementation with the printNode() function given above.
+//    NOTE: pre-order means a node is visited prior to its descendants.
+
+console.log("Pre Order");
+tree._preOrderTraverse(printNode);
+
+// 3. Implement post-order traversal using the prototype. Test your
+//    implementation with the printNode() function given above.
+//    NOTE: pre-order means a node is visited after its descendants.
+
+console.log("Post Order");
+tree._postOrderTraverse(printNode);
+
+//--------------------------------//
+// Searching for values in a tree //
+//--------------------------------//
+console.log("Searching for values in a tree");
+
+// 1. Implement the min method using the prototype and show that it works.
+
+console.log("tree._min(): " + tree._min());
+
+// 2. Implement the max method using the prototype and show that it works.
+
+console.log("tree._max(): " + tree._max());
+
+// 3. Implement the search method using the prototype and show that it works.
+
+console.log("tree.search(1) " + tree.search(1));
+console.log("tree.search(15) " + tree.search(15));
+
+// 4. Implement the remove method using the prototype and show that it works.
+
+// Skip.
+
+
+
+//----------------------//
+// Self-balancing trees //
+//----------------------//
+console.log("Self-balancing trees");
+
+// Skip.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Create the tree that is given in the book if you haven't done so yet.
+//    NOTE: Use the one given right before the Tree Traversal section that
+//          includes the 6.
+
+    // DONE IN LAB - ALL WORK HERE IS DONE ON THE LAB PAGE
+
+// 2. We want to make a copy of this tree, but want to make sure that the copy
+//    we create is also nicely balanced (since we did not implement AVL). We
+//    can use in-order, pre-order, and post-order traversal to retrieve the
+//    nodes. If we want the new tree to be balanced as well, which order should
+//    we use if we want to insert the nodes in the new tree?
+
+    // In - Order is the order of use here
+
+// 3. Run the traversal approach you picked in (2) to collect all the keys and
+//    store them in an array.
+
+function newTree(tree1, tree2) {
+  var arr1 = [];
+  function addToArray1(key) {
+    arr1.push(key);
+  }
+  tree1.inOrderTraverse(addToArray1);
+  var arr2 = [];
+  function addToArray2(key){
+    arr2.push(key);
+  }
+  tree2.inOrderTraverse(addToArray2);
+    if(arr1.length !== arr2.length){
+      return false;
+    }
+    for (var i = 0; i < arr1.length; i++){
+      if(arr1[i] !== arr2[i]){
+        return false;
+      }
+   }
+   return true;
+}
+
+// 4. Iterate through the array and insert each element inside a new tree. make
+//    sure it is balanced.
+
+  // DONE
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
