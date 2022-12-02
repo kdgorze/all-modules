@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 13 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//----------------//
+// Big O notation //
+//----------------//
+console.log("Big O notation");
+
+// 1. What is the worst case complexity of the following function?
+
+function hasDuplicates(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr.length; j++) {
+      if (i !== j && arr[i] === arr[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//IF I DOES EQUAL J, OR THE ARRAYS DONT MATCH, OR BOTH OF THESE STATEMENTS TOGETHER
+
+//------------------------------------------------------------------------------------------------------------
+
+// 2. Implement a faster version of the same function and analyze the
+//    complexity of this approach.
+
+
+function hasDuplicatesFast(arr) {
+  // todo
+  for (var i = 0; i < arr.length/2; i++) {
+    if (arr[i] !== arr[arr.length-i-1]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+//----------------------------//
+// Having fun with algorithms //
+//----------------------------//
+console.log("Having fun with algorithms");
+
+// 1. Solve http://www.spoj.com/problems/PALIN/
+
+ //Reverse String:
+ function reverseString(str) {
+
+  //Step 1 - split() method to retrun a new array
+    //example: var team = "Pittsburgh".split("");
+    //"P", "i", "t", etc;
+    var splitString = str.split("");
+
+  //Step 2: use the reverse() reutrns a new array
+    splitString.reverse();
+
+  //Step 3: Use the join method (joins arrays) 
+    splitString.join();
+
+  //Step 4: Return a value
+  return;
+
+ }
+
+function findSmallestPalindrome(k) {
+  // todo
+  var fib = [1, 1];
+var i = 2;
+while (true) {
+  var val = fib[i-2] + fib[i-1];
+  if (val > 818) {
+    break;
+  }
+  fib.push(val)
+  i++;
+}
+var sum = 0;
+for (var i = 0; i < fib.length; i++){
+  if (fib[i] % 2 === 0 && fib[i] < 2222) {
+    sum += fib[i];
+  }
+}
+console.log("Smallest Palindrome is " + sum);
+}
+
+// tests
+console.log(findSmallestPalindrome(808) === 818);
+console.log(findSmallestPalindrome(2133) === 2222);
+
+//-----------------------------------------------------------------------------------------------------
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Solve https://csacademy.com/contest/interview-archive/task/intersecting-rectangles/
+//    What is the runtime complexity of your solution?
+//    HINT: Try to break down the problems into smaller steps. For example,
+//          find a convenient way to represent rectangles and define a function
+//          that tests whether one rectangle is inside another. Then test your
+//          code on just two rectangles first to make sure it works.
+
+//DONE
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
