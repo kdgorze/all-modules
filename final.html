@@ -1,0 +1,734 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Final</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+
+
+//--------------//
+// Instructions //
+//--------------//
+
+// This final is open everything, but obviously you cannot communicate.
+// There are 5 questions for 50 points each, which is 250 points in total.
+// This means that 50 points are extra credit.
+// You can only use functionality that we covered from the book or in class.
+// Many of the data structures that you need are already included.
+// Once you are done, submit this file through Schoology.
+// Here are a couple of tips and then the questions:
+// * Read carefully! (Meaning read the question several times.)
+// * Check your work when you are done.
+// * Write down your steps in English first (use comments), then write code.
+// * Enable the error console so that you can debug problems.
+// * Pay attention to indentation and code formatting.
+// * Try to make sure that your code always runs and test frequently.
+//   (If your code stops working, it must be because of the last change.)
+// * When stuck on a question, move on to the next one and return to it later.
+//   (You may also find some questions easier than others.)
+// * Try to finish as much as you can even if you don't have a complete answer,
+//   because you will receive partial credit when appropriate.
+
+
+
+//--------------------------//
+// Provided Data Structures //
+//--------------------------//
+
+// The following data structures are provided for your convenience.
+// All comments have been removed, please check your sources for more info.
+
+function Dictionary() {
+  this.items = {};
+}
+
+Dictionary.prototype.set = function(key, value) {
+  this.items[key] = value;
+};
+
+Dictionary.prototype.delete = function(key) {
+  if (this.has(key)) {
+    delete this.items[key];
+    return true;
+  }
+  return false;
+};
+
+Dictionary.prototype.has = function(key) {
+  return this.items.hasOwnProperty(key);
+};
+
+Dictionary.prototype.get = function(key) {
+  return this.has(key) ? this.items[key] : undefined;
+};
+
+Dictionary.prototype.clear = function() {
+  this.items = {};
+};
+
+Dictionary.prototype.size = function() {
+  return Object.keys(this.items).length;
+};
+
+Dictionary.prototype.keys = function() {
+  return Object.keys(this.items);
+};
+
+Dictionary.prototype.values = function() {
+  var values = [];
+  for (var key in this.items) {
+    values.push(this.items[key]);
+  }
+  return values;
+};
+
+Dictionary.prototype.getItems = function() {
+  return this.items;
+};
+
+Dictionary.prototype.toString = function() {
+  return JSON.stringify(this.items);
+};
+
+function Node(key) {
+  this.key = key;
+  this.left = null;
+  this.right = null
+}
+
+function BinarySearchTree() {
+  this.root = null;
+}
+
+BinarySearchTree.prototype._insertNode = function(node, newNode) {
+  if (newNode.key < node.key) {
+    if (node.left === null) {
+      node.left = newNode;
+    }
+    else {
+      this._insertNode(node.left, newNode);
+    }
+  }
+  else {
+    if (node.right === null) {
+      node.right = newNode;
+    }
+    else {
+      this._insertNode(node.right, newNode);
+    }
+  }
+}
+
+BinarySearchTree.prototype.insert = function(key) {
+  var newNode = new Node(key);
+  if (this.root === null) {
+    this.root = newNode;
+  }
+  else {
+    this._insertNode(this.root, newNode);
+  }
+};
+
+BinarySearchTree.prototype._searchNode = function(node, key) {
+  if (node === null) {
+    return false;
+  }
+  if (node.key === key) {
+    return true;
+  }
+  if (key < node.key) {
+    return this._searchNode(node.left, key);
+  }
+  else {
+    return this._searchNode(node.right, key);
+  }
+}
+
+BinarySearchTree.prototype.search = function(key) {
+  return this._searchNode(this.root, key);
+};
+
+BinarySearchTree.prototype.inOrderTraverse = function(callback) {
+  function inOrderTraverseNode(node, callback) {
+    if (node !== null) {
+      inOrderTraverseNode(node.left, callback);
+      callback(node.key);
+      inOrderTraverseNode(node.right, callback);
+    }
+  }
+  inOrderTraverseNode(this.root, callback);
+};
+
+BinarySearchTree.prototype.preOrderTraverse = function(callback) {
+  function preOrderTraverseNode(node, callback) {
+    if (node !== null) {
+      callback(node.key);
+      preOrderTraverseNode(node.left, callback);
+      preOrderTraverseNode(node.right, callback);
+    }
+  }
+  preOrderTraverseNode(this.root, callback);
+};
+
+BinarySearchTree.prototype.postOrderTraverse = function(callback) {
+  function postOrderTraverseNode(node, callback) {
+    if (node !== null) {
+      postOrderTraverseNode(node.left, callback);
+      postOrderTraverseNode(node.right, callback);
+      callback(node.key);
+    }
+  }
+  postOrderTraverseNode(this.root, callback);
+};
+
+BinarySearchTree.prototype.min = function() {
+  function minNode(node) {
+    if (node === null) {
+      return null;
+    }
+    while (node.left !== null) {
+      node = node.left;
+    }
+    return node.key;
+  }
+  return minNode(this.root);
+};
+
+BinarySearchTree.prototype.max = function() {
+  function maxNode(node) {
+    if (node === null) {
+      return null;
+    }
+    while (node.right !== null) {
+      node = node.right;
+    }
+    return node.key;
+  }
+  return maxNode(this.root);
+};
+
+BinarySearchTree.prototype.print = function() {
+  function print(node) {
+    if (node !== null) {
+      var leftChild = node.left !== null ? node.left.key : "None";
+      var rightChild = node.right !== null ? node.right.key : "None";
+      console.log(leftChild + " <-- " + node.key + " --> " + rightChild);
+      print(node.left);
+      print(node.right);
+    }
+  }
+  console.log("===tree===");
+  print(this.root);
+  console.log("==========");
+};
+
+function Queue() {
+  this.items = [];
+}
+
+Queue.prototype.enqueue = function(element) {
+  this.items.push(element);
+};
+
+Queue.prototype.dequeue = function() {
+  return this.items.shift();
+};
+
+Queue.prototype.front = function() {
+  return this.items[0];
+};
+
+Queue.prototype.isEmpty = function() {
+  return this.items.length === 0;
+};
+
+Queue.prototype.size = function() {
+  return this.items.length;
+};
+
+Queue.prototype.print = function() {
+  console.log(this.items.toString());
+};
+
+function Graph() {
+  this.vertices = [];
+  this.adjList = new Dictionary();
+}
+
+Graph.prototype.addVertex = function(v) {
+  this.vertices.push(v);
+  this.adjList.set(v, []);
+};
+
+Graph.prototype.addEdge = function(v, w) {
+  this.adjList.get(v).push(w);
+  this.adjList.get(w).push(v);
+};
+
+Graph.prototype.initializeColor = function() {
+  var color = {};
+  for (var i = 0; i < this.vertices.length; i++) {
+    color[this.vertices[i]] = "white";
+  }
+  return color;
+}
+
+Graph.prototype.bfs = function(v, callback) {
+  var color = this.initializeColor();
+  var queue = new Queue();
+  queue.enqueue(v);
+  while (!queue.isEmpty()){
+    var u = queue.dequeue();
+    var neighbors = this.adjList.get(u);
+    color[u] = "grey";
+    for (var i = 0; i < neighbors.length; i++) {
+      var w = neighbors[i];
+      if (color[w] === "white") {
+        color[w] = "grey";
+        queue.enqueue(w);
+      }
+    }
+    color[w] = "black";
+    if(callback) {
+      callback(u);
+    }
+  }
+};
+
+Graph.prototype.dfs = function(v, callback) {
+  var adjList = this.adjList;
+  function dfsVisit(u, color, callback) {
+    color[u] = "grey";
+    if (callback) {
+      callback(u);
+    }
+    var neighbors = adjList.get(u);
+    for (var i = 0; i < neighbors.length; i++) {
+      var w = neighbors[i];
+      if (color[w] === "white") {
+        dfsVisit(w, color, callback);
+      }
+    }
+    color[u] = "black";
+  }
+  var color = this.initializeColor();
+  dfsVisit(v, color, callback);
+};
+
+Graph.prototype.toString = function() {
+  var s = "";
+  for (var i = 0; i < this.vertices.length; i++) {
+    s += this.vertices[i] + " ->";
+    var neighbors = this.adjList.get(this.vertices[i]);
+    for (var j = 0; j < neighbors.length; j++) {
+      s += " " + neighbors[j];
+    }
+    s += "\n";
+  }
+  return s;
+};
+
+function ArrayList() {
+  this.array = [];
+}
+
+ArrayList.prototype.size = function() {
+  return this.array.length;
+};
+
+ArrayList.prototype.insert = function(item) {
+  this.array.push(item);
+};
+
+ArrayList.prototype.get = function(idx) {
+  return this.array[idx];
+};
+
+ArrayList.prototype.toString = function() {
+  return this.array.join();
+};
+
+ArrayList.prototype.quickSort = function() {
+  function quick(array, left, right) {
+    var index;
+    if (array.length > 1) {
+      index = partition(array, left, right);
+      if (left < index - 1) {
+        quick(array, left, index - 1);
+      }
+      if (index < right) {
+        quick(array, index, right);
+      }
+    }
+  }
+  function partition(array, left, right) {
+    var pivot = array[Math.floor((right + left) / 2)];
+    var i = left;
+    var j = right;
+    while (i <= j) {
+      while (array[i] < pivot) {
+        i++;
+      }
+      while (array[j] > pivot) {
+        j--;
+      }
+      if (i <= j) {
+        swap(array, i, j);
+        i++;
+        j--;
+      }
+    }
+    return i;
+  }
+  function swap(array, index1, index2) {
+    var aux = array[index1];
+    array[index1] = array[index2];
+    array[index2] = aux;
+  }
+  quick(this.array, 0, this.array.length - 1);
+};
+
+ArrayList.prototype.binarySearch = function(item) {
+  this.quickSort();
+  var low = 0;
+  var high = this.array.length - 1;
+  var mid;
+  var element;
+  while (low <= high) {
+    mid = Math.floor((low + high) / 2);
+    element = this.array[mid];
+    if (element < item) {
+      low = mid + 1;
+    }
+    else if (element > item) {
+      high = mid - 1;
+    }
+    else {
+      return mid;
+    }
+  }
+  return -1;
+};
+
+function createNonSortedRandomArray(size) {
+  var al = new ArrayList();
+  var arr = [];
+  for (var i = 1; i <= size; i++) {
+    arr.push(i);
+  }
+  for (var i = 0; i < size; i++) {
+    var idx = Math.floor(Math.random() * arr.length);
+    var elt = arr[idx];
+    arr.splice(idx, 1);
+    al.insert(elt);
+  }
+  return al;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------//
+// Question 1 //
+//------------//
+console.log("Question 1");
+
+// 1a. Use two dictionaries to create two phone books with the following data:
+//     Phone book 1 (it uses the 'key => value' notation):
+//     Marge Simpson => 412-123-0000
+//     Philip J. Fry => 412-123-1111
+//     Peter Griffin => 412-123-2222
+//     Rick Sanchez  => 412-123-3333
+//     Phone book 2:
+//     Lois Griffin  => 412-123-4444
+//     Homer Simpson => 412-123-5555
+//     Philip J. Fry => 412-123-6666
+//     Rick Sanchez  => 412-123-7777
+
+var book1 = new Dictionary();
+var book2 = new Dictionary();
+
+//set the values
+
+book1.set("Marge Simpson", "412-123-0000")
+book1.set("Phillip J. Fry", "412-123-1111")
+book1.set("Peter Griffen", "412-123-2222")
+book1.set("Rick Sanchez", "412-123-3333")
+
+book2.set("Lois Griffen", "412-123-4444")
+book2.set("Homer Simpson", "412-123-5555")
+book2.set("Phillip J. Fry", "412-123-6666")
+book2.set("Rick Sanchez", "412-123-7777")
+
+// 1b. Implement a function that counts the number of names that appear in
+//     both dictionaries (i.e., duplicate names). For example, if you use the
+//     dictionaries above the function should return 2.
+
+function countPhoneBookDuplicates(book1, book2) {
+  var keys1 = book1.keys();
+  var count = 0;
+
+  //loop
+  for(var i = 0; i < keys1.length; i++){
+    if(book2.has(keys1[i])){
+      count++;
+    }
+  }
+  return count;
+}
+
+
+// 1c. Test your code and show that it works.
+
+// uncomment for testing
+console.log(countPhoneBookDuplicates(book1, book2) === 2);
+
+//------------------------------------------------------------------------------------------------------------------
+
+//------------//
+// Question 2 //
+//------------//
+console.log("Question 2");
+
+// Use this example array list to test your code.
+
+var list = createNonSortedRandomArray(5);
+
+// 2a. Implement the getMedian() method that returns the median of an array
+//     list. If the length of the array list is odd, then it is the middle
+//     number after ordering them. If the length of the array list is even,
+//     then it is the average of the two middle numbers after ordering them.
+//     HINT1: Use this.get(idx) to retrieve elements from the array list.
+//     HINT2: Use this.size() to get the length of the list.
+
+ArrayList.prototype.getMedian = function() {
+
+  this.size = function() {
+    return items.length;
+  };
+
+  this.get(idx);
+
+  var medianItem = null;
+  for(var i = 0; i === item.length; i++){
+    var item = items[i];
+    if(medianItem === null || item < medianItem || item-2) {
+      medianItem = item;
+    }
+  }
+  return medianItem;
+};
+
+// 2b. Test your code on the list above that has an odd number of elements.
+//     HINT: it should print 3.
+
+var oddNumbers = numbers.filter(isOdd);
+
+// 2c. Also test your code on an array list with an even number of elements.
+
+var evenNumbers = numbers.filter(isEven);
+
+//---------------------------------------------------------------------------------------------------------------------------
+
+//------------//
+// Question 3 //
+//------------//
+console.log("Question 3");
+
+// Use this example graph to test your code.
+
+var graph = new Graph();
+var myVertices = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+for (var i = 0; i < myVertices.length; i++) {
+  graph.addVertex(myVertices[i]);
+}
+graph.addEdge("A", "C");
+graph.addEdge("A", "D");
+graph.addEdge("C", "D");
+graph.addEdge("C", "G");
+graph.addEdge("D", "G");
+graph.addEdge("D", "H");
+graph.addEdge("B", "E");
+graph.addEdge("B", "F");
+graph.addEdge("E", "I");
+
+// NOTE: This follows the book example, but the edge A-B has been removed.
+
+// 3a. Implement the getDegree() method that returns the degree of a node.
+//     HINT: The node degree is equal to the number of neighbors, which is
+//           stored in the adjacency list (this.adjList) for each node.
+
+Graph.prototype.getDegree = function(vertex) {
+  return graph.length()
+};
+
+// uncomment for testing
+console.log(graph.getDegree("C") === 3);
+
+// 3b. Implement the hasPath() method that returns true if there exists a path
+//     between the two vertices, and false otherwise.
+//     HINT: You can use breadth or depth first search to answer this question.
+//     NOTE: In the implementation above both bfs and dfs take v as the first
+//           parameter, which is slightly different from the book.
+
+Graph.prototype.hasPath = function(vertex1, vertex2) {
+
+  this.bfs = function(v, callback){
+  var color = initializeColor();
+  var queue = new Queue();
+  queue.enqueue(v);
+  while (!queue.isEmpty()){
+    var u = queue.dequeue();
+    var neighbors = adjList.get(u);
+    color[u] = "grey";
+    for(var i = 0; i < neighbors.length; i++){
+      var w = neighbors[i];
+      if(color[w] === "white"){
+        color[w] = "grey";
+        queue.enqueue[w];
+      }
+    }
+    color[u] = "black";
+    if(callback){
+      callback(u);
+    }
+  }
+};
+};
+
+
+  var initializeColor = function(){
+    var color = {};
+    for(var i = 0; i < verticle.length; i++){
+      color[verticle[i]] = "white";
+    }
+    return color;
+  };
+
+
+
+var dfsVisit = function(u,color,callback) {
+  color[u] = "grey";
+  if(callback){
+    callback[u]
+  }
+    var neighbors = adjList.get(u);
+    for(var i = 0; i < neighbors.length; i++){
+      var w = neighbors[i];
+      if (color[w] === "white") {
+        dfsVisit(w,color,callback);
+      }
+    }
+    color[u] = "black";
+};
+
+this.dfs = function(callback) {
+  var color = initializeColor();
+  for (var i = 0; i < verticle.length; i++){
+    if(color[verticle[i]] === "white") {
+      dfsVisit(verticle[i],color,callback);
+    }
+  }
+};
+
+// uncomment for testing
+console.log(graph.hasPath("I", "H") === false);
+graph.addEdge("A", "B");
+console.log(graph.hasPath("I", "H") === true);
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//------------//
+// Question 4 //
+//------------//
+console.log("Question 4");
+
+// Use this example tree to test your code.
+
+var tree = new BinarySearchTree();
+tree.insert(11);
+tree.insert(7);
+tree.insert(15);
+tree.insert(5);
+tree.insert(3);
+tree.insert(9);
+tree.insert(8);
+tree.insert(10);
+tree.insert(13);
+tree.insert(12);
+tree.insert(14);
+tree.insert(20);
+tree.insert(18);
+tree.insert(25);
+
+// 4a. Implement the getNodeCount() method for a binary search tree that
+//     returns the number of nodes in the tree. You must use recursion
+//     (see helper function below) and test your code.
+
+BinarySearchTree.prototype.getNodeCount = function() {
+  // helper function for recursive calls
+  function getNodeCountRec(node) {
+    if (node === null) {
+      return 0;
+    }
+
+    return 1 + getNodeCountRec(node.left) + getNodeCountRec(node.right);
+  }
+   
+  // call helper function which returns the final result
+  return getNodeCountRec(this.root);
+};
+// uncomment for testing
+console.log(tree.getNodeCount() === 14);
+tree.insert(6);
+console.log(tree.getNodeCount() === 15);
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+//------------//
+// Question 5 //
+//------------//
+console.log("Question 5");
+
+// 5a. A network administrator is responsible for installing network cables.
+//     She wants to know, given a distance, which and how many cables she needs.
+//     There are cables of the following length: 1m, 5m, 10m, 50m, 100m.
+//     Multiple cables are available for each length. The input is the distance
+//     and the available cables, and the output should be which cables and how
+//     many should be used.
+//     HINT: This is very similar to a problem we discussed in class.
+
+function getCables(distance) {
+  // should return an array with in it all the cable lengths that should
+  // be used (see below for an example)
+
+  const cables = [100, 50, 10, 5, 1];
+
+  const selected = [];
+
+  let remaining = distance;
+
+  for (let i = 0; i < cables.length; i++) {
+    const cable = cables[i];
+
+    while (remaining >= cable) {
+      selected.push(cable);
+      remaining -= cable;
+    }
+  }
+  
+  return selected;
+}
+
+// uncomment for testing (should print [100, 100, 50, 10, 10, 5, 1, 1, 1, 1])
+console.log(getCables(279));
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
