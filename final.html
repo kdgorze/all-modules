@@ -503,7 +503,21 @@ var list = createNonSortedRandomArray(5);
 //     HINT2: Use this.size() to get the length of the list.
 
 ArrayList.prototype.getMedian = function() {
-
+  /* I would of did this
+      var size = this.size();
+      this.quickSort();
+      if (size % 2 === 1) {
+      // odd - select middle number
+    var middle = (size - 1) / 2;
+    return this.get(middle);
+  }
+  else {
+    // even - select 2 middle numbers and calculate average
+    var middle = size / 2;
+    return (this.get(middle-1) + this.get(middle)) / 2;
+  }
+};
+  */
   this.size = function() {
     return items.length;
   };
@@ -724,6 +738,31 @@ function getCables(distance) {
 // uncomment for testing (should print [100, 100, 50, 10, 10, 5, 1, 1, 1, 1])
 console.log(getCables(279));
 
+  /* #5 a what I would have did. You were close
+  unction MinCoinChangeGreedy(coins) {
+  this.makeChange = function(amount) {
+    var change = [];
+    var total = 0;
+    for (var i = coins.length-1; i >= 0; i--) {
+      var coin = coins[i];
+      while (total + coin <= amount) {
+        change.push(coin);
+        total += coin;
+      }
+    }
+    return change;
+  };
+}
+
+function getCables(distance) {
+  // should return an array with in it all the cable lengths that should
+  // be used (see below for an example)
+  // use cable lengths instead of coin values, but otherwise it is identical
+  var minCoinChangeGreedy = new MinCoinChangeGreedy([1, 5, 10, 50, 100]);
+  return minCoinChangeGreedy.makeChange(distance);
+}
+  
+  */
 
 
 </script>
